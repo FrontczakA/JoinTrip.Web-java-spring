@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Most Active Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container1 {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%; /* Rozciągnij tabelę na całą szerokość kontenera */
+            background-color: white; /* Dodaj tło białe dla tabeli */
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #343a40;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<section layout:fragment="body">
+    <div class="container1">
+        <h1>Most Active Users</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Login</th>
+                <th>Total Comments</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${mostActiveUsers}">
+                <td th:text="${user.login}">Login</td>
+                <td th:text="${user.commentCount}">Total Comments</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</html>
