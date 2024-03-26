@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title>User Ranking</title>
+    <style>
+        body {
+            color: white;
+            background-color: #343a40;
+            margin: 0;
+            padding: 0;
+        }
+        .main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .ranking-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .ranking-table th,
+        .ranking-table td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        .ranking-table th {
+            background-color: #212529;
+        }
+        .ranking-table tr:nth-child(even) {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="body">
+    <div class="main">
+        <div class="col-md-6 col-sm-12">
+            <h2>User Ranking</h2>
+            <table class="ranking-table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Login</th>
+                    <th>Comment Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user, index : ${users}">
+                    <td th:text="${index.index + 1}"></td>
+                    <td th:text="${user.login}"></td>
+                    <td th:text="${user.commentCount}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>

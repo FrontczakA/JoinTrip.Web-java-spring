@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Create Trip</title>
+    <style>
+        textarea {
+            height: 60px;
+        }
+        h2 {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <!-- Page Content-->
+    <section layout:fragment="body">
+        <div class="container mt-5">
+            <div class="row">
+                <!-- List of events-->
+                <div class="col-lg-3">
+                    <h2>Events</h2>
+                    <div class="row">
+                        <!-- Blog post-->
+                        <div th:each="event, iterEvent : ${trip.events}" class="col-lg-12 col-md-6 col-sm-6 mb-4">
+                            <div class="card">
+                                <a href="#!"><img class="card-img-top" th:src="${event.photoUrl}" alt="..." /></a>
+                                <div class="card-body">
+                                    <div class="small text-muted">January 1, 2022</div>
+                                    <h2 th:text="${event.name}" class="card-title h6"></h2>
+                                    <p class="card-text" th:text="${event.description}"></p>
+                                    <a class="btn btn-primary" th:href="@{/events/{eventId}(eventId=${event.id})}">More</a>
+                                </div>
+                            </div>
+                            <!-- Dodajemy warunek, aby przerwać wiersz po trzech eventach -->
+                            <div th:if="${(iterEvent.count + 1) % 3 == 0}" class="w-100"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog content-->
+                <div class="col-lg-6">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-1" th:text="${trip.title}"></h1>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2" th:text="${trip.creationTime}"></div>
+                            <!-- Post categories-->
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
+                        </header>
+                        <!-- Preview image figure-->
+                        <figure class="mb-4"><img class="img-fluid rounded" th:src="${trip.photoUrl}" alt="..." /></figure>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <div class="bg-white p-4 rounded">
+                                <p class="fs-5 mb-4 text-dark" th:text="${trip.description}"></p>
+                            </div>
+                            <div th:if="${session.loggedInUser != null && session.loggedInUser.id == 1}">
+                                <a class="btn btn-primary" th:href="@{/trips/{tripId}/delete(tripId=${trip.id})}">Delete</a>
+                                <a class="btn btn-primary" th:href="@{/events/{tripId}/new(tripId=${trip.id})}">CreateEvent</a>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+
+                <!-- Section for comments -->
+                <div class="col-lg-3">
+                    <section>
+                        <h2>Comments</h2>
+
+                        <!-- Komunikat o błędzie -->
+                        <div th:if="${error != null}" class="alert alert-danger" role="alert">
+                            <span th:text="${error}"></span>
+                        </div>
+
+                        <!-- Form for adding a new comment -->
+                        <form th:action="@{/trips/{tripId}/comments(tripId=${trip.id})}" method="post" th:if="${session.loggedInUser != null}">
+                            <div class="mb-3">
+                                <label for="commentContent" class="form-label" style="font-weight: bold">Add a comment:</label>
+                                <textarea class="form-control" id="commentContent" name="content" rows="1" placeholder="Write your comment..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+
+                        <!-- Loop through comments and display them -->
+                        <div th:each="comment, commentIndex : ${comments}" class="card mb-3">
+                            <div class="card-body">
+                                <p class="small text-muted" th:text="${comment.user.login}+' said: '" style="font-weight: bold"></p>
+                                <p class="card-text" th:text="${comment.content}"></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- Display number of likes -->
+                                    <span class="badge bg-primary rounded-pill me-2" th:text="'Likes: ' + ${comment.likes}"></span>
+
+                                    <!-- Button to like/unlike the comment -->
+                                    <form th:action="@{/trips/{tripId}/comments/{commentId}/like(tripId=${trip.id}, commentId=${comment.id})}" method="post" th:if="${session.loggedInUser != null}">
+                                        <button type="submit" class="btn btn-outline-primary btn-sm" th:id="'likeButton-' + ${commentIndex.index}">
+                                            <span th:attr="data-like-status=${comment.likedByUsers.contains(session.loggedInUser) ? 'unliked' : 'liked'}"></span>
+                                            <span th:text="${comment.likedByUsers.contains(session.loggedInUser) ? 'Unlike' : 'Like'}"></span>
+                                        </button>
+                                    </form>
+
+                                    <!-- Delete button -->
+                                    <div th:if="${session.loggedInUser != null && (session.loggedInUser.id == 1 || session.loggedInUser.id == comment.user.id)}">
+                                        <a class="btn btn-primary" th:href="@{/trips/{tripId}/comments/{commentId}/delete(tripId=${trip.id}, commentId=${comment.id})}">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

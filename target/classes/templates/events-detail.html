@@ -1,0 +1,90 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Create Trip</title>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <!-- Page Content-->
+    <section layout:fragment="body" >
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-1" th:text="${event.name}"></h1>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2" th:text="${event.createDate}"></div>
+                            <!-- Displaying startTime and endTime -->
+                            <p class="text-muted" th:text="'Start Time: ' + ${event.startTime}"></p>
+                            <p class="text-muted" th:text="'End Time: ' + ${event.endTime}"></p>
+                            <!-- Post categories-->
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
+                        </header>
+                        <!-- Preview image figure-->
+                        <figure class="mb-4"><img class="img-fluid rounded" th:src="${event.photoUrl}" alt="..." /></figure>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <div class="bg-white p-4 rounded">
+                                <p class="fs-5 mb-4 text-dark" th:text="${event.description}"></p>
+                            </div>
+                            <div th:if="${session.loggedInUser != null && session.loggedInUser.id == 1}">
+                                <a class="btn btn-primary" th:href="@{/events/{eventId}/delete(eventId=${event.id})}">Delete</a>
+                                <a class="btn btn-primary" th:href="@{/events/{eventId}/edit(eventId=${event.id})}">Edit</a>
+                            </div>
+                        </section>
+
+                    </article>
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Search</div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">Group size</a></li>
+                                        <li><a href="#!">Experience</a></li>
+                                        <li><a href="#!">Equipment</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">Instructors</a></li>
+                                        <li><a href="#!">Food</a></li>
+                                        <li><a href="#!">Sleeping</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Side Widget</div>
+                        <div class="card-body">Welcome to JoinTrip website, your gateway to unforgettable adventures in the Tatra Mountains! Explore the beauty of this breathtaking destination with ease as we provide you with all the essential information for your perfect journey. Discover the magic of the Tatras with us!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

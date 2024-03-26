@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container1 {
+            width: 70%;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #555;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            color: #777;
+        }
+        li strong {
+            font-weight: bold;
+            color: #333;
+        }
+        .contact-info {
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        .contact-info p {
+            margin-bottom: 15px;
+        }
+        .opening-hours {
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        .opening-hours p {
+            margin-bottom: 15px;
+        }
+        .social-media {
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        .social-media p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="body">
+    <div class="container1">
+        <h1>Contact Us</h1>
+        <h2>Get in Touch</h2>
+        <p>If you have any questions, suggestions, or feedback regarding our blog, feel free to contact us. We're here to help!</p>
+        <div class="contact-info">
+            <h2>Contact Information:</h2>
+            <ul>
+                <li>
+                    <strong>Address:</strong> ul. Gorska 5 Zakopane, Poland
+                </li>
+                <li>
+                    <strong>Phone:</strong> +48 123 456 789
+                </li>
+                <li>
+                    <strong>Email:</strong> contact@jointrip.com
+                </li>
+            </ul>
+        </div>
+        <div class="opening-hours">
+            <h2>Opening Hours:</h2>
+            <p>Our office is open Monday to Friday from 9:00 AM to 5:00 PM.</p>
+            <p>We are closed on weekends and public holidays.</p>
+        </div>
+        <div class="social-media">
+            <h2>Follow Us on Social Media:</h2>
+            <p>Stay connected with us on social media for the latest updates, news, and promotions:</p>
+            <ul>
+                <li>Facebook: <a href="#">facebook.com/jointrip</a></li>
+                <li>Twitter: <a href="#">twitter.com/jointrip</a></li>
+                <li>Instagram: <a href="#">instagram.com/jointrip</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+</body>
+</html>
